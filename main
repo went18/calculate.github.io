@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Photon Energy and Wavelength Calculator</title>
+    <style>
+      /* Add some styles to the page */
+      body {
+        font-family: sans-serif;
+      }
+      table {
+        border-collapse: collapse;
+        margin: 10px 0;
+      }
+      th, td {
+        border: 1px solid #ccc;
+        padding: 5px;
+        text-align: center;
+      }
+      .div-separator {
+        border-top: 1px solid #ccc;
+        margin-top: 10px;
+        padding-top: 10px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="div-separator"></div>
+    <h2>Photon energy calculator</h2>
+    <form onsubmit="return false;">
+      <label for="energy">Energy (eV):</label>
+      <input type="number" id="energy" name="energy" min="0" step="0.01">
+      <br>
+      <label for="wavelength">Wavelength (nm):</label>
+      <input type="number" id="wavelength" name="wavelength" min="0" step="0.01" size="20">
+      <br>
+      <label for="frequency">Frequency (Hz):</label>
+      <input type="number" id="frequency" name="frequency" min="0" step="0.01" size="20">
+      <br>
+      <label for="erg">Energy (erg):</label>
+      <input type="number" id="erg" name="erg" min="0" step="0.01" size="20">
+    </form>
+    <script>
+      function calculate(source) {
+        const energy = document.getElementById("energy").value;
+        const wavelength = document.getElementById("wavelength").value;
+        const frequency = document.getElementById("frequency").value;
+        const erg = document.getElementById("erg").value;
+      
+        if (source === "energy" && energy && !isNaN(energy)) {
+          const wavelengthResult = 1000 *1.2398 / energy;
+          const frequencyResult = energy / 4.1357e-15;
+          const ergResult = energy * 1.602189e-12;
+          document.getElementById("wavelength").value = wavelengthResult.toExponential(4);
+          document.getElementById("frequency").value = frequencyResult.toExponential(4);
+          document.getElementById("erg").value = ergResult.toExponential(4);
+        } else if (source === "wavelength" && wavelength && !isNaN(wavelength)) {
+          const energyResult = 1.2398 / (wavelength / 1e+3);
+          const frequencyResult = energyResult / 4.1357e-15;
+          const ergResult = energyResult * 1.602189e-12;
+          document.getElementById("energy").value = energyResult.toFixed(4);
+          document.getElementById("frequency").value = frequencyResult.toExponential(4);
+          document.getElementById("erg").value = ergResult.toExponential(4);
+        } else if (source === "frequency" && frequency && !isNaN(frequency)) {
+          const energyResult = frequency * 4.1357e-15;
+          const wavelengthResult = 1e+3 * 1.2398 / energyResult;
+          const ergResult = energyResult * 1.602189e-12;
+          document.getElementById("energy").value = energyResult.toExponential(4);
+          document.getElementById("wavelength").value = wavelengthResult.toExponential(4);
+          document.getElementById("erg").value = ergResult.toExponential(4);
+        } else if (source === "erg" && erg && !isNaN(erg)) {
+          const energyResult = erg / 1.602189e-12;
+          const wavelengthResult = 1e+3 * 1.2398 / erg * 1.602189e-12;
+          const frequencyResult = energyResult / 4.1357e-15;
+          document.getElementById("energy").value = energyResult.toExponential(4);
+          document.getElementById("wavelength").value = wavelengthResult.toExponential(4);
+          document.getElementById("frequency").value = frequencyResult.toExponential(4);
+        }
+
+      }
+      
+      const energyInput = document.getElementById("energy");
+      const wavelengthInput = document.getElementById("wavelength");
+      const frequencyInput = document.getElementById("frequency");
+      const ergInput = document.getElementById("erg");
+      
+      energyInput.addEventListener("input", function() { calculate("energy"); });
+      wavelengthInput.addEventListener("input", function() { calculate("wavelength"); });
+      frequencyInput.addEventListener("input", function() { calculate("frequency"); });
+      ergInput.addEventListener("input", function() { calculate("erg"); });
+      
+    </script>
+    </div>
+    
+    <div class="div-separator">
+       
+        <form>
+            <h2>CONVERT FROM MJD TO MM-DD-YYYY</h2>
+            <td>
+                Modified Julian Day (NNNNN)
+            </td>
+            <td>
+            <input type="text" name="mjdi" value="53005" size="12" onFocus="clear_field(this)">
+            <input type="button" value="Convert" onClick="updateYMD(this.form)">
+            &nbsp;&nbsp;&nbsp;<input type="Reset" value="Clear Values">
+            </td>
+            <br>
+            <td align="center" colspan="2">
+                Calculated Results:
+            </td>
+            <td>       
+                Year
+                </td>       
+            <input type="text" name="year" value="" size="4" maxlength="4">
+            <td>       
+                Month
+                </td>
+            
+            <input type="text" name="month" value="" size="2" maxlength="2">
+            <td>
+                Day
+                </td>
+            <input type="text" name="day" value="" size="2" maxlength="2">
+            <td>
+                MM-DD-YYYY
+                </td>
+            <input type="text" name="mmddyyyy" value="" size="10" maxlength="10">
+
+
+        </form>
+
+
+    </div>
+    <div class="div-separator">
+        <h2>CONVERT FROM MM-DD-YYYY TO MJD</h2>
+        <form>
+
+            <td align="center" colspan="2">
+                Required Data Entry:
+                </td>
+
+                <tr>
+                <td>       
+                Month (MM)
+                </td>
+                <td>
+                <input type="text" name="monthi" value="01" size="12" maxlength="2" onFocus="clear_field(this)">
+                </td>
+                </tr>
+                <tr>
+                <td>       
+                Day (DD)
+                </td>
+                <td>
+                <input type="text" name="dayi" value="01" size="12" maxlength="2" onFocus="clear_field(this)">
+                </td>
+                </tr>
+                <tr>
+                <td>
+                Year (YYYY)
+                </td>
+                <td>
+                <input type="text" name="yeari" value="2004" size="12" maxlength="4" onFocus="clear_field(this)">
+                </td>
+                </tr>
+                <tr BGCOLOR="#B6D4D2">
+                <td align="center" colspan="2">
+                <td colspan="2" align="center" BGCOLOR="#B6D4D2">
+                    <input type="button" value="Convert" onClick="updateMJD(this.form)">
+                    &nbsp;&nbsp;&nbsp;<input type="Reset" value="Clear Values">
+                    
+                    </td>
+                <br>
+                Calculated Results:
+                </td>
+                </tr>
+                <tr>
+                <td>
+                [Modified Julian Day]
+                </td>
+                <td>
+                
+                <input type="text" name="mjd" value="" size="12" maxlength="12">
+                </td>
+                </tr>
+                <tr>
+
+          </form>
+    </tr>
+    
+    </div>
+    <div class="div-separator">
+      <h3>
+        Input Valid UTC Data For Calculation
+        </h3>
+      <FORM NAME="cd2jdform">
+        <TR BGCOLOR=#FFFFFF>
+        <!--ROW 1-->
+        <TD>
+        <left>
+        <TABLE ALIGN=MIDDLE BORDER=5 CELLPADDING=5 >
+        <TR BGCOLOR="#B6D4D2">
+        <!--ROW 1-->
+        <TD ALIGN=left> Year </TD>
+        <TD ALIGN=left> Month </TD>
+        <TD ALIGN=left> Day </TD>
+        </TR>
+        <TR BGCOLOR=#FFFFFF>
+        <TD><INPUT TYPE="text" NAME="yearf" SIZE="6" VALUE="1980" onFocus="clear_field(this)"></TD>
+        <TD><INPUT TYPE="text" NAME="monthf" SIZE="6" VALUE="1" onFocus="clear_field(this)"></TD>
+        <TD><INPUT TYPE="text" NAME="dayf" SIZE="6" VALUE="1" onFocus="clear_field(this)"></TD>
+        </TR>
+        <TR BGCOLOR="#B6D4D2">
+        <TD ALIGN=CENTER> Hours </TD>
+        <TD ALIGN=CENTER> Minutes </TD>
+        <TD ALIGN=CENTER> Seconds </TD>
+        </TR>
+        <TR BGCOLOR=#FFFFFF>
+        <TD><INPUT TYPE="text" NAME="uthf" SIZE="6" VALUE="12" onFocus="clear_field(this)"></TD>
+        <TD><INPUT TYPE="text" NAME="utmf" SIZE="6" VALUE="0" onFocus="clear_field(this)"></TD>
+        <TD><INPUT TYPE="text" NAME="utsf" SIZE="6" VALUE="0" onFocus="clear_field(this)"></TD>
+        </TR>
+        </TABLE>
+        <h3>Julian Date Number Results</h3>
+        <TABLE>
+        <TR BGCOLOR="#B6D4D2">
+        <TD ALIGN=CENTER><INPUT TYPE="button" VALUE="Calculate" onClick=compute(cd2jdform)></TD>
+        
+        <td><input name="res" type="reset" value="Clear Result"></td>
+          
+        
+        </TR>
+        <TR BGCOLOR="#B6D4D2">
+          <TD ALIGN=CENTER> JD </TD>
+          <TD><INPUT TYPE=text NAME="result" SIZE=15 ></TD>
+        
+        </TR>
+        <TR BGCOLOR="#B6D4D2">
+          <TD ALIGN=CENTER> MJD </TD>
+          <TD><INPUT TYPE=text NAME="result_mjd" SIZE=15 ></TD>
+        </TR>
+        <tr><td colspan="4" align="center" BGCOLOR="#B6D4D2"></td>
+
+
+        <!-- Time Calcs Mid 300 -->
+
+        </td></tr>
+        </TABLE>
+        </FORM>
+    </div>
+
+    <div class="div-separator">
+        <h2>CONVERT FROM YYYYDDD TO YYYYMMDD</h2>
+        <form>
+        <input type="text" name="yyyyddd" value="2020111" size="8" maxlength="8" onFocus="clear_field(this)">
+        
+        <input type="button" value="Convert" onClick="convertDate(this.form)">
+        &nbsp;&nbsp;&nbsp;<input type="Reset" value="Clear Values">
+        <br>
+        <td>
+            [YYYYMMDD]
+        </td>
+        <input type="text" name="YYYYMMDD" value="" size="12" maxlength="12">
+        </form>
+    </div>
+
+
+    <script>
+      
+        // Define the constants
+        const h = 4.135667696e-15; // Planck's constant (eV*s)
+        const c = 299792458; // Speed of light (m/s)
+  
+        // Calculate the photon energy and wavelength
+        function calculate_w2e() {
+          // Get the input values
+          const wavelength = parseFloat(document.getElementById("wavelength").value);
+          //const energy = parseFloat(document.getElementById("energy").value);
+  
+          // Check which value to calculate
+          //if (isNaN(wavelength)) {
+            // Calculate the energy
+            const wavelength_m = wavelength * 1e-9; // Convert to meters
+            const energy_result = h * c / wavelength_m ; // Convert to eV
+            document.getElementById("energy_result").innerHTML = energy_result.toFixed(4);
+          //}
+        }
+
+        function calculate_e2w() {
+            // Get the input values
+            //const wavelength = parseFloat(document.getElementById("wavelength").value);
+            const energy = parseFloat(document.getElementById("energy").value);
+    
+            // Check which value to calculate
+    
+            //if (isNaN(energy)) {
+              // Calculate the wavelength
+              const e = energy; // Convert to joules
+      const wavelength_result = h * c / e * 1e9; // Convert to nm
+      document.getElementById("wavelength_result").innerHTML = wavelength_result.toFixed(4);
+            //} 
+          }
+          function perRound(num, precision) {
+        var precision = 3; //default value if not passed from caller, change if desired
+        // remark if passed from caller
+        precision = parseInt(precision); // make certain the decimal precision is an integer
+        var result1 = num * Math.pow(10, precision);
+        var result2 = Math.round(result1);
+        var result3 = result2 / Math.pow(10, precision);
+        return zerosPad(result3, precision);
+    }
+    
+    function zerosPad(rndVal, decPlaces) {
+        var valStrg = rndVal.toString(); // Convert the number to a string
+        var decLoc = valStrg.indexOf("."); // Locate the decimal point
+        // check for a decimal 
+        if (decLoc == -1) {
+            decPartLen = 0; // If no decimal, then all decimal places will be padded with 0s
+            // If decPlaces is greater than zero, add a decimal point
+            valStrg += decPlaces > 0 ? "." : "";
+        }
+        else {
+            decPartLen = valStrg.length - decLoc - 1; // If there is a decimal already, only the needed decimal places will be padded with 0s
+        }
+         var totalPad = decPlaces - decPartLen;    // Calculate the number of decimal places that need to be padded with 0s
+        if (totalPad > 0) {
+            // Pad the string with 0s
+            for (var cntrVal = 1; cntrVal <= totalPad; cntrVal++) 
+                valStrg += "0";
+            }
+        return valStrg;
+    }
+    // send the value in as "num" in a variable
+    
+    // clears field of default value
+    function clear_field(field) {
+            if (field.value==field.defaultValue) {
+                field.value=''
+            }
+        }
+    
+    // Convert mjd to/from Month, Day, Year,
+    
+    function MJDtoYMD (mjd_in)
+    {
+        var year;
+        var month;
+        var day;
+        var hour;
+        var jd;
+        var jdi;
+        var jdf
+        var l;
+        var n;
+        
+        
+        // Julian day
+        jd = Math.floor (mjd_in) + 2400000.5;
+    
+        // Integer Julian day
+        jdi = Math.floor (jd);
+        
+        // Fractional part of day
+        jdf = jd - jdi + 0.5;
+        
+        // Really the next calendar day?
+        if (jdf >= 1.0) {
+           jdf = jdf - 1.0;
+           jdi  = jdi + 1;
+        }
+    
+    
+        hour = jdf * 24.0;    
+        l = jdi + 68569;
+        n = Math.floor (4 * l / 146097);
+       
+        l = Math.floor (l) - Math.floor ((146097 * n + 3) / 4);
+        year = Math.floor (4000 * (l + 1) / 1461001);
+        
+        l = l - (Math.floor (1461 * year / 4)) + 31;
+        month = Math.floor (80 * l / 2447);
+        
+        day = l - Math.floor (2447 * month / 80);
+        
+        l = Math.floor (month / 11);
+        
+        month = Math.floor (month + 2 - 12 * l);
+        year = Math.floor (100 * (n - 49) + year + l);
+    
+        if (month < 10)
+           month = "0" + month;
+           
+        if (day < 10)
+           day = "0" + day;
+        
+        //year = year - 1900;
+        
+        return (new Array (year, month, day));
+    
+    }
+    
+    
+    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    function YMDtoMJD (year, month, day)
+    {    
+    
+        var year;
+        var monthi
+        var day;
+        var yr  = Math.floor (year); 
+        var mn  = Math.floor (month);
+        var day = Math.floor (day);          
+        var hr  = 0.0;                    // Hours are not valid
+        var L;
+        var julian;    
+        var mjd;
+            
+            
+        // In leap years, -1 for Jan, Feb, else 0
+        L = Math.ceil ((mn - 14) / 12);
+                 
+        var p1 = day - 32075 + Math.floor (1461 * (yr + 4800 + L) / 4);
+        
+        var p2 = Math.floor (367 * (mn - 2 - L * 12) / 12);
+        var p3 = 3 * Math.floor (Math.floor ((yr + 4900 + L) / 100) / 4);
+        
+        julian = p1 + p2 - p3;        
+        julian = julian + (hr / 24.0) - 0.5;
+      
+        mjd = julian - 2400000.5;
+        
+        
+        return (mjd);
+    
+    }
+    
+    function updateYMD (form)
+    {
+        var mjd = form.mjdi.value;
+        var ymd;
+        
+        
+        if (mjd < 0) {
+           alert ("Invalid mjd");
+           return;
+        }
+    
+        ymd = MJDtoYMD (mjd);    
+    
+        form.year.value = ymd[0];
+        form.month.value = ymd[1];
+        form.day.value = ymd[2];
+        form.mmddyyyy.value = ymd[1]+"-"+ymd[2]+"-"+ymd[0];
+        
+    }    
+    
+    function updateMJD (form)
+    {
+        var year  = form.yeari.value;
+        var month = form.monthi.value;
+        var day   = form.dayi.value;
+        var mjd;
+            
+    
+        if (year < 0) {
+           alert ("Invalid Year");
+           return;
+        }
+    
+        if (month < 1 || month > 12) {
+           alert ("Invalid Month");
+           return;
+        }
+    
+        if (day < 1 || day > 31) {
+           alert ("Invalid Day");
+           return;
+        }
+    
+        mjd = YMDtoMJD (year, month, day);
+        form.mjd.value = mjd;
+        
+    }
+    function convertDate(form) {
+      //var input = document.getElementById("inputDate").value;
+      var input = form.yyyyddd.value
+      var year = input.substring(0, 4);
+      //var year =
+      var dayOfYear = parseInt(input.substring(4));
+      
+      var date = new Date(year, 0);
+      date.setDate(dayOfYear);
+      
+      form.YYYYMMDD.value = date.getFullYear() + ("0" + (date.getMonth() + 1)).slice(-2) + ("0" + date.getDate()).slice(-2);
+
+      //document.getElementById("outputDate").innerHTML = output;
+    }
+
+  function compute(cd2jdform) {
+   var y = parseFloat(cd2jdform.yearf.value)
+   var m = parseFloat(cd2jdform.monthf.value)
+   var d = parseFloat(cd2jdform.dayf.value)
+   var uh = parseFloat(cd2jdform.uthf.value)
+   var um = parseFloat(cd2jdform.utmf.value)
+   var us = parseFloat(cd2jdform.utsf.value)
+
+   var extra = 100.0*y + m - 190002.5
+   var rjd = 367.0*y
+   rjd -= Math.floor(7.0*(y+Math.floor((m+9.0)/12.0))/4.0)
+   rjd += Math.floor(275.0*m/9.0) 
+   rjd += d
+   rjd += (uh + (um + us/60.0)/60.)/24.0
+   rjd += 1721013.5
+   rjd -= 0.5*extra/Math.abs(extra)
+   rjd += 0.5
+   cd2jdform.result.value = rjd
+   cd2jdform.result_mjd.value = rjd-2400000.5
+}
+      </script>
+       
+  </body>
+</html>
