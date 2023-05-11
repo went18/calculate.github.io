@@ -263,6 +263,179 @@
         <input type="text" name="YYYYMMDD" value="" size="12" maxlength="12">
         </form>
     </div>
+    <div class="div-separator"></div>
+    <form onsubmit="return false;">
+    <h2>hh::mm::ss to degree</h2>
+	
+	<input type="number" id="hours" name="hours" min="0" max="23"> 
+  <label for="hours">时：</label>
+	
+	<input type="number" id="minutes" name="minutes" min="0" max="59">
+  <label for="minutes">分：</label>
+	
+	<input type="number" id="seconds" name="seconds" min="0" max="59" step="0.01">
+  <label for="seconds">秒：</label>
+  <br>
+  
+  <input type="number" id="resultdes" name="resultdes" min="0" max="360" step="0.01">
+ <label for="resultde">degree</label>
+  </form>
+    <script type="text/javascript">
+      function convertToDegree(source) {
+        var hours = parseFloat(document.getElementById("hours").value);
+        var minutes = parseFloat(document.getElementById("minutes").value);
+        var seconds = parseFloat(document.getElementById("seconds").value);
+        var resultdes = parseFloat(document.getElementById("resultdes").value);
+        //var degree = hours * 15 + (minutes / 60) + (seconds / 3600);
+        //var degreeInt = Math.floor(degree);
+        //var minute = (degree - degreeInt) * 60;
+        //var minuteInt = Math.floor(minute);
+        //var second = (minute - minuteInt) * 60;
+        //var result = degreeInt + "° " + minuteInt + "' " + second.toFixed(2) + "\"";
+              //var resultde = degree.toFixed(4) + "\"";
+              if (source === "hours" || source === "minutes" || source === "seconds"){
+                if(hours && !isNaN(hours) && minutes && !isNaN(minutes) && seconds && !isNaN(seconds) ){
+                  if (hours < 0) {
+                    var degree = - (- hours * 15. + (minutes * 15 / 60.) + (seconds * 15 / 3600.));
+                  }
+                  else {
+                    var degree = hours * 15. + (minutes * 15 / 60.) + (seconds * 15 / 3600.);
+                  }
+                  //var degreeInt = Math.floor(degree);
+                  //var minute = (degree - degreeInt) * 60;
+                  //var minuteInt = Math.floor(minute);
+                  //var second = (minute - minuteInt) * 60;
+                  //var result = degreeInt + "° " + minuteInt + "' " + second.toFixed(2) + "\"";
+                  var resultde = degree.toFixed(4) ;
+  
+                  //const wavelengthResult = 1000 *1.2398 / energy;
+                  //const frequencyResult = energy / 4.1357e-15;
+                  //const ergResult = energy * 1.602189e-12;
+                  //document.getElementById("minutes").value = minutes.toExponential(4);
+                  //document.getElementById("seconds").value = seconds.toExponential(4);
+                  document.getElementById("resultdes").value = parseFloat(resultde).toFixed(4);
+
+                }
+              } else if (source === "resultdes" && resultdes && !isNaN(resultdes)) {
+                  //if (!hours || isNaN(hours)) hours=0;
+                  //if (!seconds || isNaN(seconds)) seconds=0;
+                  //if (!resultde || isNaN(resultde)) resultde=0;
+
+                  //var resultde = degree.toFixed(4) ;
+                  var hourInt= Math.floor(resultdes/15);
+                  var minuteInt = Math.floor((resultdes-hourInt*15)/0.25);
+                  var second = ((resultdes-minuteInt*0.25-hourInt*15)/0.25*60);
+      
+                  //var resultde = degree.toFixed(4) + "\"";
+                  //const wavelengthResult = 1000 *1.2398 / energy;
+                  //const frequencyResult = energy / 4.1357e-15;
+                  //const ergResult = energy * 1.602189e-12;
+                  document.getElementById("hours").value = hourInt.toFixed(0);
+                  document.getElementById("minutes").value = minuteInt.toFixed(0);
+                  document.getElementById("seconds").value = second.toFixed(4);
+              } 
+              
+        }
+  
+              const hoursInput = document.getElementById("hours");
+              const secondsInput = document.getElementById("seconds");
+              const minutesInput = document.getElementById("minutes");
+              const reslutdeInput = document.getElementById("resultdes");
+              
+              hoursInput.addEventListener("input", function()   { convertToDegree("hours")});
+              secondsInput.addEventListener("input", function() { convertToDegree("seconds")});
+              minutesInput.addEventListener("input", function() { convertToDegree("minutes")});
+              reslutdeInput.addEventListener("input", function(){ convertToDegree("resultdes")});
+  
+    </script>
+    </div>
+    <div class="div-separator"></div>
+    
+    <form onsubmit="return false;">
+    <h2>dd::mm::ss to degree</h2>
+	
+	<input type="number" id="degreedsd" name="degreedsd" min="-90" max="90"> 
+  <label for="degreedsd">度：</label>
+	
+	<input type="number" id="minutesd" name="minutesd" min="0" max="59">
+  <label for="minutesd">分：</label>
+	
+	<input type="number" id="secondsd" name="secondsd" min="0" max="59" step="0.01">
+  <label for="secondsd">秒：</label>
+  <br>
+  
+  <input type="number" id="resultdesd" name="resultdesd" min="-180" max="180" step="0.01">
+ <label for="resultded">degreed</label>
+  </form>
+    <script type="text/javascript">
+      function convertTodegreedd(source) {
+        var degreedsd = parseFloat(document.getElementById("degreedsd").value);
+        var minutesd = parseFloat(document.getElementById("minutesd").value);
+        var secondsd = parseFloat(document.getElementById("secondsd").value);
+        var resultdesd = parseFloat(document.getElementById("resultdesd").value);
+        //var degreed = hours * 15 + (minutesd / 60) + (secondsd / 3600);
+        //var degreedInt = Math.floor(degreed);
+        //var minute = (degreed - degreedInt) * 60;
+        //var minuteIntd = Math.floor(minute);
+        //var secondd = (minute - minuteIntd) * 60;
+        //var result = degreedInt + "° " + minuteIntd + "' " + secondd.toFixed(2) + "\"";
+              //var resultded = degreed.toFixed(4) + "\"";
+              if (source === "degreedsd" || source === "minutesd" || source === "secondsd"){
+                if(degreedsd && !isNaN(degreedsd) && minutesd && !isNaN(minutesd) && secondsd && !isNaN(secondsd) ){
+                  if (degreedsd < 0) {
+                    var degreed = - (- degreedsd + (minutesd / 60.) + (secondsd  / 3600.));
+                  }
+                  else {
+                    var degreed = degreedsd + (minutesd  / 60.) + (secondsd / 3600.);
+                  }
+                  //var degreedInt = Math.floor(degreed);
+                  //var minute = (degreed - degreedInt) * 60;
+                  //var minuteIntd = Math.floor(minute);
+                  //var secondd = (minute - minuteIntd) * 60;
+                  //var result = degreedInt + "° " + minuteIntd + "' " + secondd.toFixed(2) + "\"";
+                  var resultded = degreed.toFixed(4) ;
+  
+                  //const wavelengthResult = 1000 *1.2398 / energy;
+                  //const frequencyResult = energy / 4.1357e-15;
+                  //const ergResult = energy * 1.602189e-12;
+                  //document.getElementById("minutesd").value = minutesd.toExponential(4);
+                  //document.getElementById("secondsd").value = secondsd.toExponential(4);
+                  document.getElementById("resultdesd").value = parseFloat(resultded).toFixed(4);
+
+                }
+              } else if (source === "resultdesd" && resultdesd && !isNaN(resultdesd)) {
+                  //if (!hours || isNaN(hours)) hours=0;
+                  //if (!secondsd || isNaN(secondsd)) secondsd=0;
+                  //if (!resultded || isNaN(resultded)) resultded=0;
+
+                  //var resultded = degreed.toFixed(4) ;
+                  var dgreeInt = Math.floor(resultdesd);
+                  var minuteIntd = Math.floor((resultdesd-dgreeInt)*60);
+                  var secondd = ((resultdesd-minuteIntd/60-dgreeInt)*60*60);
+      
+                  //var resultded = degreed.toFixed(4) + "\"";
+                  //const wavelengthResult = 1000 *1.2398 / energy;
+                  //const frequencyResult = energy / 4.1357e-15;
+                  //const ergResult = energy * 1.602189e-12;
+                  document.getElementById("degreedsd").value = dgreeInt.toFixed(0);
+                  document.getElementById("minutesd").value = minuteIntd.toFixed(0);
+                  document.getElementById("secondsd").value = secondd.toFixed(4);
+              } 
+              
+        }
+  
+              const hoursInputd = document.getElementById("degreedsd");
+              const secondsdInputd = document.getElementById("secondsd");
+              const minutesdInputd = document.getElementById("minutesd");
+              const reslutdeInputd = document.getElementById("resultdesd");
+              
+              hoursInputd.addEventListener("input", function()   { convertTodegreedd("degreedsd")});
+              secondsdInputd.addEventListener("input", function() { convertTodegreedd("secondsd")});
+              minutesdInputd.addEventListener("input", function() { convertTodegreedd("minutesd")});
+              reslutdeInputd.addEventListener("input", function(){ convertTodegreedd("resultdesd")});
+  
+    </script>
+    </div>
 
 
     <script>
