@@ -513,8 +513,8 @@
    rjd += 1721013.5
    rjd -= 0.5*extra/Math.abs(extra)
    rjd += 0.5
-   cd2jdform.result.value = rjd
-   cd2jdform.result_mjd.value = rjd-2400000.5
+   cd2jdform.result.value = (rjd).toFixed(8);
+   cd2jdform.result_mjd.value = (rjd-2400000.5).toFixed(8);
 }
       </script>
        
